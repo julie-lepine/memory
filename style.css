@@ -23,3 +23,7 @@ cursor : pointer;
 .card.hidden p {
     visibility: hidden;
 }
+
+.card.finded {
+    color: blue;
+}
