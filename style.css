@@ -1,29 +1,45 @@
 #gameBoard {
     display : grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 700px;
+    margin: auto;
 }
 
 .card {
     margin : 10px;
+    transition: 0.5s;
 }
 
 .card:hover {
-cursor : pointer;
+    cursor : pointer;
 }
 
 .card.hidden {
-    background-color : red;
+    background-image : url(./img/back.bmp);
+    background-size: contain;
+    /* permet une jolie transition au clic sur la carte */
+    transform: rotateY(180deg);
+    background-repeat: no-repeat;
 }
 
-.card.show p {
+.card img {
+    height: 100%;
+    width: 100%;
+}
+
+.card img {
+    margin: 0;
+}
+
+.card.show img {
     visibility: visible;
 }
 
-.card.hidden p {
+.card.hidden img {
     visibility: hidden;
 }
 
 .card.finded {
-    color: blue;
+    border: solid 5px #E0C2CA;
+    opacity: 0.7;
 }
