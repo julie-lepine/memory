@@ -66,7 +66,7 @@ function clickOnCardEvent(card) {
 
             if(cptCartesTrouvees == nbPairesOnGame*2) {
                 // animation pour la win
-                alert('gagné')
+                setAnimationWin()
             }
         }
     }
@@ -74,6 +74,7 @@ function clickOnCardEvent(card) {
 
 // placement aléatoire des cartes au démarrage de partie
 function initGame(nbPaires) {
+    stopAnimation()
     // le plateau se vide quand on commence une partie plutôt que d'ajouter les cartes à la suite des anciennes déjà jouées
     gameBoard.innerHTML = ""
     nbPairesOnGame = nbPaires;
@@ -117,4 +118,26 @@ function getRandomArbitrary(min, max) {
 
 function getHtmlCodeCard(nomCard, id) {
     return ` <div class ="card hidden" id="${id}" data-image="${nomCard}"> <img src="./img/${nomCard}.bmp"> </div> `
+}
+
+// gestion des confettis
+function setAnimationWin() {
+    let animateDiv = document.getElementById('allConfettis')
+    animateDiv.innerHTML = ""
+    for (let i = 0; i < 100; i++) {
+        // on crée 100 confettis auxquels on ajoute la classe confetti déjà stylisée en CSS
+        let confetti = document.createElement("div")
+            confetti.classList.add('confetti')
+            confetti.style.left = getRandomArbitrary(0, 100)+'%'
+            // animations différentes pour chaque confetti
+            confetti.style.animationDelay = 50*i+"ms"
+            // couleur aléaoire
+            confetti.style.backgroundColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16)
+            animateDiv.appendChild(confetti)
+    }
+}
+
+function stopAnimation() {
+    let animateDiv = document.getElementById('allConfettis')
+    animateDiv.innerHTML = ""
 }

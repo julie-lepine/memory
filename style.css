@@ -8,6 +8,7 @@
 .card {
     margin : 10px;
     transition: 0.5s;
+    z-index: 1;
 }
 
 .card:hover {
@@ -42,4 +43,40 @@
 .card.finded {
     border: solid 5px #E0C2CA;
     opacity: 0.7;
+}
+
+.confetti {
+    width: 8px; 
+    height: 15px;
+    background-color: red;
+    animation : falling 5s infinite;
+    position : absolute;
+    top : -20px;
+    z-index: 2;
+}
+
+@keyframes falling {
+    0% {
+        top : -20px;
+        transform: rotate(180deg);
+    }
+    20% {
+        transform: translateX(100px) rotate(360deg);
+    }
+    40% {
+        transform: translateX(40px) rotate(180deg);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(20px) rotate(360deg);
+    }
+    70% {
+        opacity: 0.3;
+        transform: translateX(30px) rotate(180deg);
+    }
+    100% {
+        opacity: 0;
+        top : 950%;
+        transform: translateX(20px) rotate(360deg);
+    }
 }
