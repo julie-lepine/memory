@@ -14,10 +14,22 @@
         
     </div>
 
-    <div id="gameBoard">
+    <div class="welcomeText">
+        <h1>Memory Disney</h1>
         <label>Combien de paires pour jouer ?</label>
-        <input id="nbCardInput" type="number" max="8" min="2" value="8">
-        <button id="playButton">Jouer</button>
+        <div class="gameConfig">
+            <div class="gameInput">
+                <input id="nbCardInput" type="number" max="8" min="2" value="8">
+                <div class="moreAndLessCards">
+                    <button id="moreCards">+</button>
+                    <button id="lessCards">-</button>
+                </div>
+            </div>
+        </div>
+        <button id="playButton"><span>Jouer</span></button>
+    </div>
+
+    <div id="gameBoard">
     </div>
 
     <script src="./main.js"></script>

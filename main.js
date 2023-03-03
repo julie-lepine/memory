@@ -17,6 +17,20 @@ document.getElementById('playButton').addEventListener("click", function() {
     initGame(nbCardInput.value)
 })
 
+// boutons + et - de cartes
+document.querySelector('#moreCards').addEventListener('click', function() {
+    let nbCardInput = document.getElementById('nbCardInput')
+    if(nbCardInput.value < 8) {
+        nbCardInput.value ++
+    }})
+
+document.querySelector('#lessCards').addEventListener('click', function() {
+    let nbCardInput = document.getElementById('nbCardInput')
+    if(nbCardInput.value > 2) {
+        nbCardInput.value --
+    }
+})
+
 // fonction qui gère le clic sur une carte : 
 function clickOnCardEvent(card) {
     let allCards = document.querySelectorAll('.card')
