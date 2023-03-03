@@ -10,59 +10,10 @@
 </head>
 
 <body>
-
     <div id="gameBoard">
-        <!-- data-image = solution
-        permet de stocker des données sur le noeud HTML -->
-        <div class ="card hidden" id="0" data-image="mickey">
-            <img src="./img/mickey.bmp"> 
-        </div>
-        <div class ="card hidden" id="1" data-image="donald">
-            <img src="./img/donald.bmp"> 
-        </div>
-        <div class ="card hidden" id="2" data-image="donald">
-            <img src="./img/donald.bmp">
-        </div>
-        <div class ="card hidden" id="3" data-image="mickey">
-            <img src="./img/mickey.bmp">
-        </div>
-        <div class ="card hidden" id="4" data-image="picsou">
-            <img src="./img/picsou.bmp"> 
-        </div>
-        <div class ="card hidden" id="5" data-image="dingo">
-            <img src="./img/dingo.bmp"> 
-        </div>
-        <div class ="card hidden" id="6" data-image="dingo">
-            <img src="./img/dingo.bmp">
-        </div>
-        <div class ="card hidden" id="7" data-image="picsou">
-            <img src="./img/picsou.bmp">
-        </div>
-        <!--
-        <div class ="card hidden" id="8" data-image="daisy">
-            <img src="./img/daisy.bmp"> 
-        </div>
-        <div class ="card hidden" id="9" data-image="minnie">
-            <img src="./img/minnie.bmp"> 
-        </div>
-        <div class ="card hidden" id="10" data-image="daisy">
-            <img src="./img/daisy.bmp">
-        </div>
-        <div class ="card hidden" id="11" data-image="minnie">
-            <img src="./img/minnie.bmp">
-        </div>
-        <div class ="card hidden" id="12" data-image="miss-tick">
-            <img src="./img/miss-tick.bmp"> 
-        </div>
-        <div class ="card hidden" id="13" data-image="miss-tick">
-            <img src="./img/miss-tick.bmp"> 
-        </div>
-        <div class ="card hidden" id="14" data-image="zaza">
-            <img src="./img/zaza.bmp">
-        </div>
-        <div class ="card hidden" id="15" data-image="zaza">
-            <img src="./img/zaza.bmp">
-        </div>-->
+        <label>Combien de paires pour jouer ?</label>
+        <input id="nbCardInput" type="number" max="8" min="2" value="8">
+        <button id="playButton">Jouer</button>
     </div>
 
     <script src="./main.js"></script>
