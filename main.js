@@ -116,14 +116,17 @@ function clickOnCardEvent(card) {
                     // On a battu le meilleur score !
                     let audio2 = new Audio("./sounds/applause.mp3")
                     audio2.play()
-                    // va faire fonctionner le second audio mais stoppera le premier afin qu'ils ne se chevauchent pas en cas de meilleur score (car aussi partie gagnée)
+                    // va faire fonctionner le second audio mais stoppera le premier afin qu'ils ne se chevauchent pas en cas de meilleur score (car aussi partie gagnée) :
                     audio.pause()
                     setCookie(BestScoreCookie, nbCoups);
                     BestScoreNode.innerText = nbCoups;
                 }
-                else {
-
-                }
+                 /* on aurait aussi pu mettre le son de victoire classique comme ça :
+                 else {
+                    // on a pas battu le meilleur score mais on a gagné
+                    let audio = new Audio("./sounds/magic-shime.mp3")
+                    audio.play()
+                }*/
             }
         }
     }
