@@ -25,7 +25,7 @@ body {
 }
 
 .welcomeText h1 {
-    font-family: 'Waltograph', sans-serif;
+    font-family: url(./font/waltographUI.ttf), sans-serif;
     margin-bottom: 0;
 }
 
