@@ -8,26 +8,39 @@ const cards = ['mickey', 'donald', 'dingo', 'picsou', 'daisy', 'minnie', 'zaza',
 const gameBoard = document.getElementById('gameBoard')
 
 // compteur
-let nbPairesOnGame 
-let cptCartesTrouvees 
+let nbPairesOnGame
+let cptCartesTrouvees = 0
+
+// meilleurs scores
+const nbCoupsCurrentNode = document.getElementById("nbCoupsCurrent");
+const BestScoreNode = document.getElementById("BestScore");
+const avgScoreNode = document.getElementById("avgScore");
+const BestScoreCookie = "BestScore";
+const AllScoresCookie = "AllScores"
+
+let nbCoups = 0;
+
+BestScoreNode.innerText = getCookie(BestScoreCookie)
+avgScoreNode.innerText = getAverageNbCoups();
 
 // bouton pour récupérer le nb de paires voulues pour jouer + initialisation de la fonction initGame
-document.getElementById('playButton').addEventListener("click", function() {
+document.getElementById('playButton').addEventListener("click", function () {
     let nbCardInput = document.getElementById('nbCardInput')
     initGame(nbCardInput.value)
 })
 
 // boutons + et - de cartes
-document.querySelector('#moreCards').addEventListener('click', function() {
+document.querySelector('#moreCards').addEventListener('click', function () {
     let nbCardInput = document.getElementById('nbCardInput')
-    if(nbCardInput.value < 8) {
-        nbCardInput.value ++
-    }})
+    if (nbCardInput.value < 8) {
+        nbCardInput.value++
+    }
+})
 
-document.querySelector('#lessCards').addEventListener('click', function() {
+document.querySelector('#lessCards').addEventListener('click', function () {
     let nbCardInput = document.getElementById('nbCardInput')
-    if(nbCardInput.value > 2) {
-        nbCardInput.value --
+    if (nbCardInput.value > 2) {
+        nbCardInput.value--
     }
 })
 
@@ -67,20 +80,49 @@ function clickOnCardEvent(card) {
                     if (card.classList.contains("hidden")) {
                         // c'est une carte cachée, on ne fait rien
                     }
-                    else if(!card.classList.contains("finded")) {
+                    else if (!card.classList.contains("finded")) {
                         card.classList.add("finded")
                         cptCartesTrouvees++
                     }
                 })
             }
 
+            nbCoups++
+            nbCoupsCurrentNode.innerText = nbCoups;
+
             cptClickCurrent = 0
             // on oublie les cartes précédemment retournées car on ne les recherchera pas une nouvelle fois au tour d'après :
             cardClickedId = ""
 
-            if(cptCartesTrouvees == nbPairesOnGame*2) {
+            if (cptCartesTrouvees == nbPairesOnGame * 2) {
                 // animation pour la win
                 setAnimationWin()
+
+                let oldScore = getCookie(AllScoresCookie);
+                let allscore = "";
+                if (oldScore != null) {
+                    allscore = oldScore + "." + nbCoups;
+                }
+                else {
+                    allscore = nbCoups;
+                }
+
+                setCookie(AllScoresCookie, allscore);
+                avgScoreNode.innerText = getAverageNbCoups();
+
+                if (nbCoups < getCookie(BestScoreCookie)
+                    || getCookie(BestScoreCookie) == null) {
+                    //On a battu le meilleur score !
+                    setCookie(BestScoreCookie, nbCoups);
+                    BestScoreNode.innerText = nbCoups;
+
+                    let audio = new Audio("sounds/cheer2.mp3");
+                    audio.play();
+                }
+                else {
+                    let audio = new Audio("sounds/applause.mp3");
+                    audio.play();
+                }
             }
         }
     }
@@ -93,6 +135,8 @@ function initGame(nbPaires) {
     gameBoard.innerHTML = ""
     nbPairesOnGame = nbPaires;
     cptCartesTrouvees = 0
+    nbCoups = 0;
+    nbCoupsCurrentNode.innerText = nbCoups;
     let gameCards = [];
     for (let i = 0; i < nbPaires; i++) {
         // 2 fois gameCards car chaque carte va par paire
@@ -141,17 +185,66 @@ function setAnimationWin() {
     for (let i = 0; i < 100; i++) {
         // on crée 100 confettis auxquels on ajoute la classe confetti déjà stylisée en CSS
         let confetti = document.createElement("div")
-            confetti.classList.add('confetti')
-            confetti.style.left = getRandomArbitrary(0, 100)+'%'
-            // animations différentes pour chaque confetti
-            confetti.style.animationDelay = 50*i+"ms"
-            // couleur aléaoire
-            confetti.style.backgroundColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16)
-            animateDiv.appendChild(confetti)
+        confetti.classList.add('confetti')
+        confetti.style.left = getRandomArbitrary(0, 100) + '%'
+        // animations différentes pour chaque confetti
+        confetti.style.animationDelay = 50 * i + "ms"
+        // couleur aléaoire
+        confetti.style.backgroundColor = '#' + (Math.random() * 0xFFFFFF << 0).toString(16)
+        animateDiv.appendChild(confetti)
     }
 }
 
 function stopAnimation() {
     let animateDiv = document.getElementById('allConfettis')
     animateDiv.innerHTML = ""
+}
+
+// fonction pour récupérer les cookies
+function setCookie(name, value) {
+    // Encode value in order to escape semicolons, commas, and whitespace
+    var cookie = name + "=" + encodeURIComponent(value);
+    /* Sets the max-age attribute so that the cookie expires
+    after the specified number of days */
+    cookie += "; max-age=" + (100 * 24 * 60 * 60);
+    document.cookie = cookie;
+}
+
+function getCookie(name) {
+    // Split cookie string and get all individual name=value pairs in an array
+    var cookieArr = document.cookie.split(";");
+
+    // Loop through the array elements
+    for (var i = 0; i < cookieArr.length; i++) {
+        var cookiePair = cookieArr[i].split("=");
+
+        /* Removing whitespace at the beginning of the cookie name
+        and compare it with the given string */
+        if (name == cookiePair[0].trim()) {
+            // Decode the cookie value and return
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+
+    // Return null if not found
+    return null;
+}
+
+function getAverageNbCoups(){
+    let allscore = getCookie(AllScoresCookie);
+    if(allscore != null){
+        let allScoreTab = allscore.split(".");
+        let sum = 0;
+        let nbParties = 0;
+        allScoreTab.forEach(score => {
+            sum += +score;
+            nbParties ++;
+        });
+    
+        let moyenne = sum / nbParties;
+        return Math.round(moyenne);
+    }
+    else{
+        return 0;
+    }
 }
