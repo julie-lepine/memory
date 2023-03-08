@@ -97,7 +97,8 @@ function clickOnCardEvent(card) {
             if (cptCartesTrouvees == nbPairesOnGame * 2) {
                 // animation pour la win
                 setAnimationWin()
-
+                let audio = new Audio("./sounds/magic-shime.mp3")
+                audio.play()
                 let oldScore = getCookie(AllScoresCookie);
                 let allscore = "";
                 if (oldScore != null) {
@@ -112,12 +113,16 @@ function clickOnCardEvent(card) {
 
                 if (nbCoups < getCookie(BestScoreCookie)
                     || getCookie(BestScoreCookie) == null) {
-                    //On a battu le meilleur score !
+                    // On a battu le meilleur score !
+                    let audio2 = new Audio("./sounds/applause.mp3")
+                    audio2.play()
+                    // va faire fonctionner le second audio mais stoppera le premier afin qu'ils ne se chevauchent pas en cas de meilleur score (car aussi partie gagnée)
+                    audio.pause()
                     setCookie(BestScoreCookie, nbCoups);
                     BestScoreNode.innerText = nbCoups;
                 }
                 else {
-                    
+
                 }
             }
         }
@@ -225,9 +230,9 @@ function getCookie(name) {
     return null;
 }
 
-function getAverageNbCoups(){
+function getAverageNbCoups() {
     let allscore = getCookie(AllScoresCookie);
-    if(allscore != null){
+    if (allscore != null) {
         let allScoreTab = allscore.split(".");
         let sum = 0;
         let nbParties = 0;
@@ -235,13 +240,13 @@ function getAverageNbCoups(){
             // sum vaut lui-même plus le score
             // transformer le score en entier sinon ça reste en chaine de caractère et donc ajoute les nbCoups les uns après les autres. Utiliser + ou parseInt()
             sum += +score;
-            nbParties ++;
+            nbParties++;
         });
-    
+
         let moyenne = sum / nbParties;
         return Math.round(moyenne);
     }
-    else{
+    else {
         return 0;
     }
 }

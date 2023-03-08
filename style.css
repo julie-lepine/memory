@@ -27,9 +27,6 @@ body {
 .welcomeText h1 {
     font-family: 'Waltograph', sans-serif;
     margin-bottom: 0;
-    /* essayer de fixer la police sur les mobiles */
-    font-weight: 500;
-    font-style: normal;
 }
 
 /* INPUT POUR CHOISIR LE NB DE PAIRES AVEC LESQUELLES JOUER */
