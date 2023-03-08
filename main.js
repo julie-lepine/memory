@@ -115,13 +115,9 @@ function clickOnCardEvent(card) {
                     //On a battu le meilleur score !
                     setCookie(BestScoreCookie, nbCoups);
                     BestScoreNode.innerText = nbCoups;
-
-                    let audio = new Audio("sounds/cheer2.mp3");
-                    audio.play();
                 }
                 else {
-                    let audio = new Audio("sounds/applause.mp3");
-                    audio.play();
+                    
                 }
             }
         }
@@ -218,8 +214,7 @@ function getCookie(name) {
     for (var i = 0; i < cookieArr.length; i++) {
         var cookiePair = cookieArr[i].split("=");
 
-        /* Removing whitespace at the beginning of the cookie name
-        and compare it with the given string */
+        // Supprime l'espace au début du nom du cookie et le compare avec la chaine de caractères donnée 
         if (name == cookiePair[0].trim()) {
             // Decode the cookie value and return
             return decodeURIComponent(cookiePair[1]);
@@ -237,6 +232,8 @@ function getAverageNbCoups(){
         let sum = 0;
         let nbParties = 0;
         allScoreTab.forEach(score => {
+            // sum vaut lui-même plus le score
+            // transformer le score en entier sinon ça reste en chaine de caractère et donc ajoute les nbCoups les uns après les autres. Utiliser + ou parseInt()
             sum += +score;
             nbParties ++;
         });
